@@ -2,9 +2,19 @@
 
 import sys
 import re
+import os.path
 from datetime import date, datetime, time, timedelta
 
 # helper
+
+
+def is_time_format(s):
+    p = re.compile('^[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{3}$')
+    if p.match(s) is None:
+        return False
+    else:
+        return True
+
 
 def is_time_line(l):
     p = re.compile('^[0-9]{2}:')
@@ -27,6 +37,7 @@ def get_str(t):
 def get_timedelta(h=0, m=0, s=0, mm=0):
     return timedelta(hours=h, minutes=m, seconds=s, microseconds=mm*1000)
 
+
 def add(t0, delta):
     delta = timedelta(hours=delta.hour,
                      minutes=delta.minute,
@@ -35,6 +46,7 @@ def add(t0, delta):
     dt = datetime.combine(date.today(), t0) + delta
     return dt.time()
 
+
 def sub(t0, delta):
     delta = timedelta(hours=delta.hour,
                      minutes=delta.minute,
@@ -42,6 +54,7 @@ def sub(t0, delta):
                      microseconds=delta.microsecond)
     dt = datetime.combine(date.today(), t0) - delta
     return dt.time()
+
 
 def get_endpoints(l):
     l = l.rstrip()
@@ -60,34 +73,44 @@ def transform_time_line(l, delta, sens):
         tes.append(sub(e, delta))
     return get_str(tes[0]) + " --> " + get_str(tes[1]) + "\n"
 
+
 # main
 
 if __name__ == "__main__":
 
     filesrt = sys.argv[1]
-    t0 = get_time(sys.argv[2])
+    if not os.path.isfile(filesrt):
+        print("ERROR: file isn't exist !")
+        exit(1)
+    filesrtnew = filesrt + ".new"
+
+    t0 = sys.argv[2]
+    if not is_time_format(t0):
+        print("ERROR: t0 isn't correct !")
+        exit(1)
+    t0 = get_time(t0)
     delta = 0
     sense = ""
     first_time_line = True
 
-    with open("./sample.srt") as inputf:
+    with open(filesrt) as inputf:
       print("Reading")
       for l in inputf:
         if is_time_line(l):
           if first_time_line:
             tt0 = get_endpoints(l)[0]
             if tt0 > t0:
-              delta = sub(tt0,t0)
+              delta = sub(tt0, t0)
               sens = '-'
               print("Delta: -{}".format(get_str(delta)))
             else:
-              delta = sub(t0,tt0)
+              delta = sub(t0, tt0)
               sens = '+'
               print("Delta: +{}".format(get_str(delta)))
             first_time_line = False
-          with open("./sample.srt.new", "a") as outputf:
+          with open(filesrtnew, "a") as outputf:
             outputf.write(transform_time_line(l, delta, sens))
         else:
-          with open("./sample.srt.new", "a") as outputf:
+          with open(filesrtnew, "a") as outputf:
             outputf.write(l)
       print("Writing")
