@@ -15,3 +15,5 @@ https://google-styleguide.googlecode.com/svn/trunk/pyguide.html
 ## Tests
 
 ## LICENSE
+
+Released under the MIT License, see [LICENSE](https://github.com/glegoux/browsing-history-shell/blob/master/LICENSE/).
