@@ -16,5 +16,4 @@ https://google-styleguide.googlecode.com/svn/trunk/pyguide.html
 
 ## LICENSE
 
-Released under the MIT License,  
-see [LICENSE](https://github.com/glegoux/srt/blob/master/LICENSE).
+Released under the MIT License, see [LICENSE](https://github.com/glegoux/srt/blob/master/LICENSE).
