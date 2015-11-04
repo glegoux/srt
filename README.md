@@ -1,18 +1,8 @@
 # SRT
 
-Under construction
+Translate before or after the subtitle time for SRT file permanently.  
 
-## Usage
-
-## Motivation
-
-## Synopsis
-
-## Coding Style
-
-https://google-styleguide.googlecode.com/svn/trunk/pyguide.html
-
-## Tests
+Coding style: https://google-styleguide.googlecode.com/svn/trunk/pyguide.html  
 
 ## LICENSE
 
