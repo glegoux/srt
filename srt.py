@@ -16,7 +16,7 @@ def is_timeformat(s):
         return True
 
 
-def is_timeline(l):
+def is_time_line(l):
     p = re.compile('^[0-9]{2}:')
     m = p.match(l)
     if m is None:
@@ -87,7 +87,7 @@ if __name__ == "__main__":
     t0 = get_time(t0)
 
     delta = 0
-    sense = ""
+    sens = ""
     is_first_timeline = True
 
     with open(filesrt) as inputf:
